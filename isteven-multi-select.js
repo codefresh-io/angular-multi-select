@@ -44,6 +44,9 @@ angular.module( 'isteven-multi-select', ['ng'] ).directive( 'istevenMultiSelect'
             inputModel      : '=',
             outputModel     : '=',
 
+            controlObject   : '=',
+            loadingMessage  : '@',
+
             // settings based on attribute
             isDisabled      : '=',
 
@@ -88,6 +91,21 @@ angular.module( 'isteven-multi-select', ['ng'] ).directive( 'istevenMultiSelect'
                 reset   : true,
                 filter  : true
             };
+
+            if ($scope.controlObject) {
+              $scope.controlObject.showFilter = function() {
+                $scope.helperStatus.filter = true;
+              };
+
+              $scope.controlObject.showLoading = function() {
+                $scope.isLoading = true;
+              };
+
+              $scope.controlObject.hideLoading = function() {
+                $scope.isLoading = false;
+              }
+
+            }
 
             var
                 prevTabIndex        = 0,
@@ -1104,6 +1122,8 @@ angular.module( 'isteven-multi-select', ['ng'] ).directive( 'istevenMultiSelect'
                     // the tick/check mark
                     '<span class="tickMark" ng-if="item[ groupProperty ] !== true && item[ tickProperty ] === true" ng-bind-html="icon.tickMark"></span>'+
                 '</div>'+
+                // loading message
+                '<div class = "loading" ng-if = "isLoading" ng-bind-html = "loadingMessage"></div>'+
             '</div>'+
         '</div>'+
     '</span>';
