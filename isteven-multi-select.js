@@ -600,15 +600,12 @@ angular.module( 'isteven-multi-select', ['ng'] ).directive( 'istevenMultiSelect'
                 var label   = '';
 
                 angular.forEach( temp, function( value, key ) {
-                    item[ value ] && ( label += '&nbsp;' + value.split( '.' ).reduce( function( prev, current ) {
+                    item[ value ] && ( label += ' ' + value.split( '.' ).reduce( function( prev, current ) {
                         return prev[ current ];
                     }, item ));
                 });
 
-                if ( type.toUpperCase() === 'BUTTONLABEL' ) {
-                    return label;
-                }
-                return $sce.trustAsHtml( label );
+                return angular.element(label).text() || label;
             }
 
             // UI operations to show/hide checkboxes based on click event..
@@ -1115,7 +1112,7 @@ angular.module( 'isteven-multi-select', ['ng'] ).directive( 'istevenMultiSelect'
                             // item label using ng-bind-hteml
                             '<span '+
                                 'ng-class="{disabled:itemIsDisabled( item )}" '+
-                                'ng-bind-html="writeLabel( item, \'itemLabel\' )">'+
+                                'ng-bind="writeLabel( item, \'itemLabel\' )">'+
                             '</span>'+
                         '</label>'+
                     '</div>'+
