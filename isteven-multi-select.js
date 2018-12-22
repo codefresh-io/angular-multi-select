@@ -557,7 +557,7 @@ angular.module( 'isteven-multi-select', ['ng'] ).directive( 'istevenMultiSelect'
                     angular.forEach( $scope.inputModel, function( value, key ) {
                         if ( typeof value !== 'undefined' && value[ attrs.tickProperty ] === true ) {
                             if ( ctr < tempMaxLabels ) {
-                                $scope.varButtonLabel += ( $scope.varButtonLabel.length > 0 ? '</div>, <div class="buttonLabel">' : '<div class="buttonLabel">') + $scope.writeLabel( value, 'buttonLabel' );
+                                $scope.varButtonLabel += ( $scope.varButtonLabel.length > 0 ? '</div>, <div class="buttonLabel">' : '<div class="buttonLabel">') + $scope.writeLabel( value, 'buttonLabel' ).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
                             }
                             ctr++;
                         }
@@ -605,7 +605,7 @@ angular.module( 'isteven-multi-select', ['ng'] ).directive( 'istevenMultiSelect'
                     }, item ));
                 });
 
-                return angular.element(label).text() || label;
+                return label;
             }
 
             // UI operations to show/hide checkboxes based on click event..
